@@ -14,12 +14,13 @@ const getUsers = async (req, res) => {
   }
 };
 
+// Thêm người dùng vào Firebase
 const addUser = async (req, res) => {
-  const { name, phoneNumber, classes , email , district , province,  } = req.body;  // them classes , them email, province, address
+  const { name, phone, classes } = req.body;  // them classes
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ name, classes, email,phoneNumber,district, province });  // them classes
-    res.status(200).json({ message: "Người dùng đã được thêm thành côngfwfw" });
+    await newUserRef.set({ name, classes });  // them classes
+    res.status(200).json({ message: "Người dùng đã được thêm thành công" });
   } catch (error) {
     res.status(500).json({ error: "Không thể thêm người dùng vào Firebase" });
   }
@@ -36,15 +37,12 @@ const syncData = async (req, res) => {
       const newUserRef = db.ref('users').push();
       await newUserRef.set({
             name: user.name,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            district: user.district,
-            province: user.province,
+            phone: user.phone,
             classes: user.classes
       });
     });
 
-    res.status(200).json({ message: "Dữ liệu đã được đông bộ và xử lý " });
+    res.status(200).json({ message: "Dữ liệu đã được đồng bộ vào Firebase" });
   } catch (error) {
     res.status(500).json({ error: "Không thể đồng bộ dữ liệu từ API bên ngoài" });
   }

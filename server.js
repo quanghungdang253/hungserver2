@@ -89,7 +89,7 @@ app.use(bodyParser.json());
 // Route mặc định gửi một yêu cầu đến server  /
 app.get('/', (req, res) => {
   console.log(process.env.FIREBASE_PRIVATE_KEY);
-  res.send('Chào mừng bạn đến với API hungserver1 ! Các endpoint khả dụngđwdwdw: /addUser (POST), /getUsers (GET)');
+  res.send('Chào mừng bạn đến với API ! Các endpoint khả dụng: /addUser (POST), /getUsers (GET)');
 
 
 });
