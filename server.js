@@ -96,15 +96,15 @@ app.get('/', (req, res) => {
 
 // API để thêm người dùng vào Firebase
 app.post('/addUser', async (req, res) => {
-  const { name , classes } = req.body;
+  const { brothersAndsisters, phoneNumber,   fullname,  province,  email,  address,  district, houseNumber,  note,  FormOfPayment,  nameLogin,   passWord  } = req.body;
 
-  if (!name || !classes) {
-        return res.status(400).send('Tên và tuổi không được để trống.');
+  if (!brothersAndsisters || !phoneNumber ||   !fullname ||  !province ||  !email  || !address ||  !district ||!houseNumber || !note ||  !FormOfPayment ) {
+        return res.status(400).send('Thông tin nhập không đủ ');
   }
 
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ name, classes });            
+    await newUserRef.set({ brothersAndsisters, phoneNumber,   fullname,  province,  email,  address,  district, houseNumber,  note,  FormOfPayment });            
     res.status(200).send('Người dùng đã được thêm vào Cơ sở dữ liệu ');
   } catch (error) {
     console.error("Lỗi khi thêm người dùng", error);
