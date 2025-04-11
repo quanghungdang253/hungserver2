@@ -78,25 +78,25 @@ const serviceAccount = {
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL:  process.env.DATABASE_URL
+  databaseURL:  process.env.DATABASE_URL // liên kết tới database bằng cách sử  dụng biến môi trường 
 });
 
 const db = admin.database();
 
 // Middleware để xử lý JSON
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 
-// Route mặc định cho GET /
+// Route mặc định gửi một yêu cầu đến server  /
 app.get('/', (req, res) => {
   console.log(process.env.FIREBASE_PRIVATE_KEY);
-  res.send('Chào mừng bạn đến với API Backend! Các endpoint khả dụng: /addUser (POST), /getUsers (GET)');
+  res.send('Chào mừng bạn đến với API hungserver1 ! Các endpoint khả dụngđwdwdw: /addUser (POST), /getUsers (GET)');
 
 
 });
 
 // API để thêm người dùng vào Firebase
 app.post('/addUser', async (req, res) => {
-  const { name,classes } = req.body;
+  const { name , classes } = req.body;
 
   if (!name || !classes) {
         return res.status(400).send('Tên và tuổi không được để trống.');
@@ -104,8 +104,8 @@ app.post('/addUser', async (req, res) => {
 
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ name, classes });
-    res.status(200).send('Người dùng đã được thêm vào Firebase');
+    await newUserRef.set({ name, classes });            
+    res.status(200).send('Người dùng đã được thêm vào Cơ sở dữ liệu ');
   } catch (error) {
     console.error("Lỗi khi thêm người dùng", error);
     res.status(500).send('Có lỗi xảy ra khi thêm người dùng');
