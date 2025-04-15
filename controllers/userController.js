@@ -17,7 +17,7 @@ const getUsers = async (req, res) => {
 
 // Thêm người dùng vào Firebase
 const addUser = async (req, res) => {
-  const {FormOfPayment ,dateOfbirth, brotherAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province} = req.body;  // them classes
+  const {FormOfPayment ,dateOfbirth, brotherAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province,gender} = req.body;  // them classes
   try {
     const newUserRef = db.ref('users').push();
     await newUserRef.set({ FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender});  // them classes
