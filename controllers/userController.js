@@ -40,7 +40,7 @@ const syncData = async (req, res) => {
           
             FormOfPayment:user.FormOfPayment,
             dateOfbirth:user.dateOfbirth,
-            brotherAndsisters:user.brotherAndsisters,
+            brothersAndsisters:user.brotherAndsisters,
             district:user.district,
             email: user.email,
             fullname:user.fullname,
