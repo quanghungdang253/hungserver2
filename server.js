@@ -96,7 +96,7 @@ app.get('/', (req, res) => {
 
 // API để thêm người dùng vào Firebase
 app.post('/addUser', async (req, res) => {
-  const { FormOfPayment ,dateOfbirth, brotherAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province } = req.body;
+  const { FormOfPayment ,dateOfbirth, brotherAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender} = req.body;
 
   if (!FormOfPayment ,!dateOfbirth, !brotherAndsisters,!district,!email,!fullname,!houseNumber,!note,!phoneNumber,!province) {
         return res.status(400).send('ô nhập liệu k được bỏ trống .');
@@ -104,7 +104,7 @@ app.post('/addUser', async (req, res) => {
 
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ FormOfPayment ,dateOfbirth, brotherAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province});
+    await newUserRef.set({ FormOfPayment ,dateOfbirth, brotherAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender});
     res.status(200).send('Người dùng đã được thêm vào Firebasefefeefefe');
   } catch (error) {
     console.error("Lỗi khi thêm người dùng", error);
