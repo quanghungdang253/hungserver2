@@ -78,36 +78,36 @@ const serviceAccount = {
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL:  process.env.DATABASE_URL // liên kết tới database bằng cách sử  dụng biến môi trường 
+  databaseURL:  process.env.DATABASE_URL
 });
 
 const db = admin.database();
 
 // Middleware để xử lý JSON
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
-// Route mặc định gửi một yêu cầu đến server  /
+// Route mặc định cho GET /
 app.get('/', (req, res) => {
   console.log(process.env.FIREBASE_PRIVATE_KEY);
-  res.send('Chào mừng bạn đến với API ! Các endpoint khả dụng: /addUser (POST), /getUsers (GET)fwefeffefwe');
+  res.send('Chào mừng bạn đến với API Backend! Các endpoint khả dụng: /addUser (POST), /getUsers (GET)');
 
 
 });
 
 // API để thêm người dùng vào Firebase
 app.post('/addUser', async (req, res) => {
-  const { brothersAndsisters, phoneNumber,   fullname,  province,  email,  district, houseNumber,  note,  FormOfPayment,  nameLogin,   passWord  } = req.body;
+  const { name,classes } = req.body;
 
-  if (!brothersAndsisters || !phoneNumber ||   !fullname ||  !province ||  !email  || !dateOfbirth ||  !district ||!houseNumber  ||  !FormOfPayment ) {
-        return res.status(400).send('Thông tin nhập không đủ ');
+  if (!name || !classes) {
+        return res.status(400).send('Tên và tuổi không được để trống.');
   }
 
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ brothersAndsisters, phoneNumber,   fullname,  province,  email,   district, houseNumber,  note,  FormOfPayment ,nameLogin, passWord});            
-    res.status(200).send('Người dùng đã được thêm vào Cơ sở dữ liệu ');
+    await newUserRef.set({ name, classes });
+    res.status(200).send('Người dùng đã được thêm vào Firebasefefeefefe');
   } catch (error) {
-          console.error("Lỗi khi thêm người dùng", error);
+    console.error("Lỗi khi thêm người dùng", error);
     res.status(500).send('Có lỗi xảy ra khi thêm người dùng');
     
   }
