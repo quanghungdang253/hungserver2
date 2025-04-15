@@ -40,7 +40,7 @@ const syncData = async (req, res) => {
           
             FormOfPayment:user.FormOfPayment,
             dateOfbirth:user.dateOfbirth,
-            brothersAndsisters:user.brotherAndsisters,
+            brothersAndsisters:user.brothersAndsisters,
             district:user.district,
             email: user.email,
             fullname:user.fullname,
@@ -49,8 +49,7 @@ const syncData = async (req, res) => {
             phoneNumber:user.phoneNumber,
             province:user.province,
             gender:user.gender,
-            nameLogin: user.nameLogin, // thêm nếu cần
-            passWord: user.passWord   // thêm nếu cần
+            
           
       });
     });
