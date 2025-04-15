@@ -20,7 +20,7 @@ const addUser = async (req, res) => {
   const {FormOfPayment ,dateOfbirth, brotherAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province} = req.body;  // them classes
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ FormOfPayment ,dateOfbirth, brotherAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender});  // them classes
+    await newUserRef.set({ FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender});  // them classes
     res.status(200).json({ message: "Người dùng đã được thêm thành công" });
   } catch (error) {
     res.status(500).json({ error: "Không thể thêm người dùng vào Firebase" });
