@@ -98,9 +98,7 @@ app.get('/', (req, res) => {
 app.post('/addUser', async (req, res) => {
   const { FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender} = req.body;
 
-  if (!FormOfPayment || !dateOfbirth || !brothersAndsisters || !district || !email ||!fullname||!houseNumber || !note || !phoneNumber || !province || !gender) {
-        return res.status(400).send('ô nhập liệu k được bỏ trống .');
-  }
+
 
   try {
     const newUserRef = db.ref('users').push();
