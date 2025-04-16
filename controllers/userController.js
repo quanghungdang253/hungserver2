@@ -18,6 +18,10 @@ const getUsers = async (req, res) => {
 // Thêm người dùng vào Firebase
 const addUser = async (req, res) => {
   const {FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province,gender} = req.body;  // them classes
+
+  if (!fullname || !email || !phoneNumber || !dateOfbirth) {
+    return res.status(400).json({ error: "Vui lòng nhập đầy đủ họ tên, email và số điện thoại." });
+  }
   try {
     const newUserRef = db.ref('users').push();
     await newUserRef.set({ FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender});  // them classes
