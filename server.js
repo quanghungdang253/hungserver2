@@ -96,15 +96,15 @@ app.get('/', (req, res) => {
 
 // API để thêm người dùng vào Firebase
 app.post('/addUser', async (req, res) => {
-  const { name,classes } = req.body;
+  const { fullname,  email, phoneNumber, dateOfbirth,  province, district, note,  gender,FormOfPayment,houseNumber,brothersAndsisters } = req.body;
 
-  if (!name || !classes) {
+  if (!fullname || !email ||!phoneNumber ||!dateOfbirth || !province ||!district ||  !note || !gender || !FormOfPayment || !houseNumber || !brothersAndsisters ) {
         return res.status(400).send('Tên và tuổi không được để trống.');
   }
 
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ name, classes });
+    await newUserRef.set({ fullname,  email, phoneNumber, dateOfbirth,  province, district, note,  gender,FormOfPayment,houseNumber,brothersAndsisters });
     res.status(200).send('Người dùng đã được thêm vào Firebase');
   } catch (error) {
     console.error("Lỗi khi thêm người dùng", error);
