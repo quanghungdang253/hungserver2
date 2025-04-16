@@ -89,21 +89,23 @@ app.use(bodyParser.json());
 // Route mặc định cho GET /
 app.get('/', (req, res) => {
   console.log(process.env.FIREBASE_PRIVATE_KEY);
-  res.send('Chào mừng bạn đến với API Backend! Các endpoint khả dụng: /addUser (POST), /getUsers (GET)fwfwefew');
+  res.send('Chào mừng bạn đến với API Backend! Các endpoint khả dụng: /addUser (POST), /getUsers (GET)');
 
 
 });
 
 // API để thêm người dùng vào Firebase
 app.post('/addUser', async (req, res) => {
-  const { FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender} = req.body;
+  const { name,classes } = req.body;
 
-
+  if (!name || !classes) {
+        return res.status(400).send('Tên và tuổi không được để trống.');
+  }
 
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender});
-    res.status(200).send('Người dùng đã được thêm vào Firebasefefeefefe');
+    await newUserRef.set({ name, classes });
+    res.status(200).send('Người dùng đã được thêm vào Firebase');
   } catch (error) {
     console.error("Lỗi khi thêm người dùng", error);
     res.status(500).send('Có lỗi xảy ra khi thêm người dùng');

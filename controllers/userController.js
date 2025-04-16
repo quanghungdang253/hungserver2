@@ -1,6 +1,5 @@
 const axios = require('axios');
 const db = require('../firebaseAdmin/firebaseConfig');  // Import Firebase database
-const { use } = require('../routes/userRoutes');
 app.use(express.json());
 // Lấy danh sách người dùng từ Firebase
 const getUsers = async (req, res) => {
@@ -17,14 +16,10 @@ const getUsers = async (req, res) => {
 
 // Thêm người dùng vào Firebase
 const addUser = async (req, res) => {
-  const {FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province,gender} = req.body;  // them classes
-
-  if (!fullname || !email || !phoneNumber || !dateOfbirth) {
-    return res.status(400).json({ error: "Vui lòng nhập đầy đủ họ tên, email và số điện thoại." });
-  }
+  const { name, phone, classes } = req.body;  // them classes
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ FormOfPayment ,dateOfbirth, brothersAndsisters,district,email,fullname,houseNumber,note,phoneNumber,province, gender});  // them classes
+    await newUserRef.set({ name, classes });  // them classes
     res.status(200).json({ message: "Người dùng đã được thêm thành công" });
   } catch (error) {
     res.status(500).json({ error: "Không thể thêm người dùng vào Firebase" });
@@ -41,20 +36,9 @@ const syncData = async (req, res) => {
     usersData.forEach(async (user) => {
       const newUserRef = db.ref('users').push();
       await newUserRef.set({
-          
-            FormOfPayment:user.FormOfPayment,
-            dateOfbirth:user.dateOfbirth,
-            brothersAndsisters:user.brothersAndsisters,
-            district:user.district,
-            email: user.email,
-            fullname:user.fullname,
-            houseNumber:user.houseNumber,
-            note:user.note,
-            phoneNumber:user.phoneNumber,
-            province:user.province,
-            gender:user.gender,
-            
-          
+            name: user.name,
+            // phone: user.phone,
+            classes: user.classes
       });
     });
 
