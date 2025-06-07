@@ -16,10 +16,10 @@ const getUsers = async (req, res) => {
 
 // Thêm người dùng vào Firebase
 const addUser = async (req, res) => {
-  const { fullname,  email, phoneNumber, dateOfbirth,  province, district, note,  gender,FormOfPayment,houseNumber,brothersAndsisters} = req.body;  // them classes
+  const { fullname,  email, phoneNumber, dateOfbirth,  province, district, note,  gender,FormOfPayment,houseNumber,brothersAndsisters, date, dataProduct} = req.body;  // them classes
   try {
     const newUserRef = db.ref('users').push();
-    await newUserRef.set({ fullname,  email, phoneNumber, dateOfbirth,  province, district, note,  gender,FormOfPayment,houseNumber,brothersAndsisters });  // them classes
+    await newUserRef.set({ fullname,  email, phoneNumber, dateOfbirth,  province, district, note,  gender,FormOfPayment,houseNumber,brothersAndsisters, dataProduct, date });  // them classes
     res.status(200).json({ message: "Người dùng đã được thêm thành công" });
   } catch (error) {
     res.status(500).json({ error: "Không thể thêm người dùng vào Firebase" });
@@ -45,7 +45,10 @@ const syncData = async (req, res) => {
           note : user.note,
           gender: user.gender,
           FormOfPayment : user.FormOfPayment,
-          houseNumber: user.houseNumber,brothersAndsisters: user.brothersAndsisters
+          houseNumber: user.houseNumber,brothersAndsisters: user.brothersAndsisters,
+          date: user.date,
+          dataProduct:user.dataProduct
+
       });
     });
 
